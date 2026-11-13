@@ -113,6 +113,45 @@ func main() {
 
 	fmt.Println(sl, len(sl), cap(sl))
 
+	sl2 := []string{"Hello World"}
+	fmt.Println(sl2)
+
+	for x := 0; x < 10; x++ {
+		sl2 = append(sl2, "tim")
+		fmt.Println(sl2, len(sl2), cap(sl2)) // cap doubles if it reaches limit, len increases one per word
+	}
+
+	sl3 := make([]int, 10)
+	fmt.Println(sl3)
+
+	sl4 := []string{"Hello", "World", "Hi"}
+	for i, value := range sl4 {
+		fmt.Println(i, value)
+	}
+
+	test4(sl4) // it works
+	fmt.Println(sl4)
+
+	var mp map[string]int = map[string]int{"a": 1}
+	for i, value := range mp {
+		fmt.Println(i, value)
+	}
+
+	mp2 := map[string]int{"b": 4}
+	fmt.Println(mp2)
+	mp3 := make(map[string]int)
+	fmt.Println((mp3))
+	mp3["c"] = 1
+	mp3["d"] = 2
+
+	value, ok := mp["d"]
+	fmt.Println(value, ok)
+	delete(mp3, "c")
+
+}
+
+func test4(arr []string) {
+	arr[0] = "change this"
 }
 
 func test(arr [2][2]int) {
