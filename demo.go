@@ -105,6 +105,14 @@ func main() {
 	fmt.Println(arr3)
 
 	arr5 := [5]int{1, 2, 3, 4, 5}
+	sl := arr5[1:3]
+	sl[0] = 100
+	fmt.Println(sl) // 2,3
+	//:2 first 2
+	//1: every element after first one
+
+	fmt.Println(sl, len(sl), cap(sl))
+
 }
 
 func test(arr [2][2]int) {
