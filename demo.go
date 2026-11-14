@@ -148,6 +148,96 @@ func main() {
 	fmt.Println(value, ok)
 	delete(mp3, "c")
 
+	val := add(5, 4)
+	vals1, strs1 := add2(4, 5)
+	fmt.Println(vals1, strs1)
+	fmt.Println(val)
+
+	val10 := callFund(doubleNum)
+	fmt.Println(val10)
+
+	val11 := callFund(func(x int) int {
+		return x + 11
+	})
+
+	fmt.Println(val11)
+	s := sums([]int{1, 2, 5, 657, 7, 8}...)
+	fmt.Println(s)
+	fmt.Println(sums(1, 2, 4, 4, 6, 6, 7))
+
+	p1 := Person{"Tim", 23} // name: age:
+	p1.name = "John"
+	fmt.Println(p1)
+	fmt.Println(getName(p1))
+
+	p1.setName("Jon")
+
+	p2 := Person2{"Alex", 20, []Sport{{"Soccer", "D"}}}
+	fmt.Println(p2.favSports[0].position)
+
+	var s11 Shape = Triangle{1, 3, 4}
+	fmt.Println(s11.getPerimeter())
+}
+func (t Triangle) getPerimeter() uint {
+	return t.a + t.b + t.c
+}
+
+type Triangle struct {
+	a uint
+	b uint
+	c uint
+}
+
+type Shape interface {
+	getPerimeter() uint
+}
+
+type Sport struct {
+	name     string
+	position string
+}
+
+type Person2 struct {
+	name      string
+	age       uint
+	favSports []Sport
+}
+
+func (p Person) setName(newName string) {
+	p.name = newName
+}
+
+func getName(p Person) string {
+	return p.name
+}
+
+type Person struct {
+	name string // lower  case = private, first letter capital = public same for function names
+	age  uint
+}
+
+func sums(nums ...int) int {
+	s := 0
+	for _, value := range nums {
+		s += value
+	}
+	return s
+}
+
+func callFund(callable func(int) int) int {
+	return callable(10)
+}
+
+func doubleNum(num int) int {
+	return 2 * num
+}
+
+func add(num1 int, num2 int) int {
+	return num1 + num2
+}
+
+func add2(num1 int, num2 int) (int, string) {
+	return num1 + num2, "Hello"
 }
 
 func test4(arr []string) {
@@ -155,7 +245,7 @@ func test4(arr []string) {
 }
 
 func test(arr [2][2]int) {
-	arr[0] = [2]int{100, 100}
+	//arr[0] = [2]int{100, 100}
 }
 
 func test2(arr *[2][2]int) {
