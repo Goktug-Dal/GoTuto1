@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"math"
 	"strconv"
@@ -177,7 +178,53 @@ func main() {
 
 	var s11 Shape = Triangle{1, 3, 4}
 	fmt.Println(s11.getPerimeter())
+
+	defer deferredFunc()
+	//panic("This is panic")
+	fmt.Println("run")
+
+	result, err2 := div(1, 0)
+	if err2 != nil {
+		fmt.Println("error occurred")
+	} else {
+		fmt.Println(result)
+	}
+
+	valss := addy(4.3, 5.6)
+	fmt.Println(valss)
+
+	X1 := 0
+	Y1 := &X1
+	fmt.Println(X1, Y1)
+
+	addy2(&X1)
+	fmt.Println(X1)
 }
+
+func addy2(x *int) {
+	*x += 5
+}
+
+func addy[T int | float64](x T, y T) T {
+	return x + y
+}
+
+func div(a int, b int) (int, error) {
+	if b == 0 {
+		return 0, errors.New("division by 0")
+	}
+	return a / b, nil
+}
+func deferredFunc() {
+	fmt.Println("defer")
+	r := recover()
+	if r == nil {
+		fmt.Println("no error")
+	} else {
+		fmt.Println(r)
+	}
+}
+
 func (t Triangle) getPerimeter() uint {
 	return t.a + t.b + t.c
 }
@@ -204,7 +251,7 @@ type Person2 struct {
 }
 
 func (p Person) setName(newName string) {
-	p.name = newName
+	//p.name = newName
 }
 
 func getName(p Person) string {
