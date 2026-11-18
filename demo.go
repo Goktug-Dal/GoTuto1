@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math"
 	"strconv"
+	"time"
 )
 
 func main() {
@@ -199,6 +200,67 @@ func main() {
 
 	addy2(&X1)
 	fmt.Println(X1)
+
+	go run() // if you use just run() 's it will take llonger because it wont be async
+	go run2()
+	go run3()
+	time.Sleep(7 * time.Second)
+	fmt.Println("Done")
+
+	ch := make(chan int)
+	go add110(1, 1, ch)
+
+	x110 := <-ch
+	fmt.Println(x110)
+
+	add110(5, 100, ch)
+	add110(5, -100, ch)
+	add110(-3, 0, ch)
+	add110(0, 4, ch)
+	x155 := <-ch
+	x155 = <-ch
+	x155 = <-ch
+	x155 = <-ch
+	fmt.Println(x155)
+
+	ch2 := make(chan int)
+	ch3 := make(chan int)
+
+	go add1109(10, 5, ch2, 4)
+	go add1109(20, 15, ch3, 2)
+
+	for i := 0; i < 2; i++ {
+		select {
+		case m := <-ch2:
+			fmt.Println(m)
+		case m2 := <-ch3:
+			fmt.Println(m2)
+		}
+	}
+}
+
+func add1109(x int, y int, ch chan int, value int) {
+	time.Sleep(time.Duration(value) * time.Second)
+	ch <- x + y // channel
+}
+
+func add110(x int, y int, ch chan int) {
+	ch <- x + y // channel
+}
+
+func run() {
+	time.Sleep(2 * time.Second)
+	fmt.Println("run")
+}
+
+func run2() {
+	time.Sleep(4 * time.Second)
+	fmt.Println("run2")
+}
+
+func run3() {
+	time.Sleep(6 * time.Second)
+	fmt.Println("run3")
 }
 
 func addy2(x *int) {
